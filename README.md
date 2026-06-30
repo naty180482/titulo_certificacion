@@ -1,56 +1,28 @@
-# 🛒 Administración de Productos - E-commerce
+# 🛒 E-commerce Admin - Proyecto de Certificación
 
-## Motor de base de datos
-SQLite (db.sqlite3)
+Sistema completo de administración de productos para e-commerce, desarrollado con **Django** (backend web) y **Node.js + Express** (API REST), conectado a una base de datos **PostgreSQL**.
 
-## Descripción del modelo de datos
+## 🔗 Repositorio
+https://github.com/naty180482/titulo_certificacion
 
-### Categoría
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| id | AutoField | Clave primaria |
-| nombre | CharField(100) | Nombre de la categoría |
-| descripcion | TextField | Descripción opcional |
+## 📋 Descripción
+Este proyecto fue desarrollado como parte de la certificación en desarrollo full-stack. Permite gestionar un catálogo de productos con operaciones CRUD a través de una interfaz web y una API REST.
 
-### Producto
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| id | AutoField | Clave primaria |
-| nombre | CharField(200) | Nombre del producto |
-| descripcion | TextField | Descripción |
-| precio | DecimalField(10,2) | Precio (>0) |
-| stock | IntegerField | Stock (>=0) |
-| categoria | ForeignKey | Relación con Categoría |
-| disponible | BooleanField | ¿Disponible? |
-| fecha_creacion | DateTimeField | Fecha de creación |
-| fecha_actualizacion | DateTimeField | Última modificación |
+### Funcionalidades
+- Listar, crear, editar y eliminar productos
+- Categorías para clasificar productos
+- Búsqueda por nombre o descripción
+- Filtro por categoría
+- Ordenamiento por precio (ascendente/descendente)
+- API REST para integración con otros sistemas
+- Panel de administración de Django
 
-**Relación:** Una Categoría tiene muchos Productos
+## 🛠️ Tecnologías
+| Tecnología | Propósito |
+|------------|-----------|
+| Python / Django | Backend web |
+| Node.js / Express | API REST |
+| PostgreSQL | Base de datos |
+| HTML / CSS | Interfaz de usuario |
 
-## Rutas principales
-
-| URL | Descripción |
-|-----|-------------|
-| `/` | Listar productos |
-| `/crear/` | Crear producto |
-| `/editar/<id>/` | Editar producto |
-| `/eliminar/<id>/` | Eliminar producto |
-| `/admin/` | Panel de administración |
-
-## Pasos para ejecutar
-
-```bash
-# Activar entorno virtual
-venv\Scripts\activate
-
-# Crear migraciones
-python manage.py makemigrations
-
-# Aplicar migraciones
-python manage.py migrate
-
-# Crear superusuario
-python manage.py createsuperuser
-
-# Ejecutar servidor
-python manage.py runserver
+## 📁 Estructura
