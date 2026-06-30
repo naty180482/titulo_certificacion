@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<h2>📋 Lista de Productos</h2>
+
+<a href="{% url 'crear_producto' %}" class="btn btn-success">➕ Agregar Nuevo Producto</a>
+
+<!-- Barra de búsqueda y filtros -->
+<div style="display: flex; gap: 1rem; margin: 1rem 0 1.5rem 0; flex-wrap: wrap;">
+    <form method="get" style="display: flex; gap: 0.5rem; flex: 1; flex-wrap: wrap;">
+        <input type="text" name="busqueda" value="{{ busqueda }}" 
+               placeholder="🔍 Buscar productos por nombre..." 
+               style="flex: 1; min-width: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        
+        <select name="categoria" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <option value="">Todas las categorías</option>
+            {% for cat in categorias %}
+                <option value="{{ cat.id }}" {% if categoria_id == cat.id|stringformat:"s" %}selected{% endif %}>
+                    {{ cat.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        <select name="orden" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <option value="">Ordenar por</option>
+            <option value="precio_asc" {% if orden == 'precio_asc' %}selected{% endif %}>Precio ↑ (menor a mayor)</option>
+            <option value="precio_desc" {% if orden == 'precio_desc' %}selected{% endif %}>Precio ↓ (mayor a menor)</option>
+        </select>
+        
+        <button type="submit" class="btn btn-primary">🔍 Buscar</button>
+        <a href="{% url 'listar_productos' %}" class="btn btn-secondary">↩️ Limpiar</a>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.id }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.categoria.nombre }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>
+                {% if producto.disponible %}
+                    <span class="badge badge-success">✓ Disponible</span>
+                {% else %}
+                    <span class="badge badge-danger">✗ No disponible</span>
+                {% endif %}
+            </td>
+            <td class="actions">
+                <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">✏️ Editar</a>
+                <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="empty-message">
+                {% if busqueda or categoria_id %}
+                    📭 No se encontraron productos con esos criterios.
+                    <br>
+                    <a href="{% url 'listar_productos' %}" class="btn btn-secondary" style="margin-top: 0.5rem;">Ver todos los productos</a>
+                {% else %}
+                    📭 No hay productos registrados. ¡Agrega tu primer producto!
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

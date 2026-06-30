@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Producto{% endblock %}
+
+{% block content %}
+<div class="card" style="text-align: center;">
+    <h2>🗑️ Confirmar Eliminación</h2>
+    
+    <div class="alert alert-danger" style="margin: 1rem 0;">
+        ⚠️ ¿Estás seguro de eliminar el siguiente producto?
+    </div>
+    
+    <div style="background-color: #f8f9fa; padding: 1rem; border-radius: 5px; margin: 1rem 0;">
+        <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+        <p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+        <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+        <p><strong>Stock:</strong> {{ producto.stock }}</p>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">✅ Sí, eliminar</button>
+        <a href="{% url 'listar_productos' %}" class="btn btn-secondary">❌ Cancelar</a>
+    </form>
+</div>
+{% endblock %}

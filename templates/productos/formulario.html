@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>📝 {{ titulo }}</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.nombre.id_for_label }}">Nombre del producto:</label>
+            {{ form.nombre }}
+            {% if form.nombre.errors %}
+                <div class="alert alert-danger">{{ form.nombre.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+            {{ form.descripcion }}
+            {% if form.descripcion.errors %}
+                <div class="alert alert-danger">{{ form.descripcion.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.precio.id_for_label }}">Precio ($):</label>
+            {{ form.precio }}
+            {% if form.precio.errors %}
+                <div class="alert alert-danger">{{ form.precio.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.stock.id_for_label }}">Stock:</label>
+            {{ form.stock }}
+            {% if form.stock.errors %}
+                <div class="alert alert-danger">{{ form.stock.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+            {{ form.categoria }}
+            {% if form.categoria.errors %}
+                <div class="alert alert-danger">{{ form.categoria.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label>{{ form.disponible }} {{ form.disponible.label }}</label>
+        </div>
+        
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="submit" class="btn btn-primary">💾 Guardar</button>
+            <a href="{% url 'listar_productos' %}" class="btn btn-secondary">↩️ Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

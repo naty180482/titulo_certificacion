@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<h2>📋 Lista de Productos</h2>
+
+<a href="{% url 'crear_producto' %}" class="btn btn-success">➕ Agregar Nuevo Producto</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.id }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.categoria.nombre }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>
+                {% if producto.disponible %}
+                    <span class="badge badge-success">✓ Disponible</span>
+                {% else %}
+                    <span class="badge badge-danger">✗ No disponible</span>
+                {% endif %}
+            </td>
+            <td class="actions">
+                <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">✏️ Editar</a>
+                <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="empty-message">📭 No hay productos registrados. ¡Agrega tu primer producto!</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
