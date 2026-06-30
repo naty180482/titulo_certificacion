@@ -1,6 +1,6 @@
 const model = require('../models/productoModel');
 
-// GET /api/productos - Listar todos
+// GET /api/productos
 const listar = async (req, res) => {
     try {
         const productos = await model.getProductos();
@@ -10,7 +10,7 @@ const listar = async (req, res) => {
     }
 };
 
-// GET /api/productos/:id - Obtener uno
+// GET /api/productos/:id
 const obtener = async (req, res) => {
     try {
         const { id } = req.params;
@@ -24,12 +24,11 @@ const obtener = async (req, res) => {
     }
 };
 
-// POST /api/productos - Crear
+// POST /api/productos
 const crear = async (req, res) => {
     try {
         const { nombre, descripcion, precio, stock, categoria_id, disponible } = req.body;
         
-        // Validaciones
         if (!nombre) return res.status(400).json({ error: 'Nombre requerido' });
         if (precio <= 0) return res.status(400).json({ error: 'Precio > 0' });
         if (stock < 0) return res.status(400).json({ error: 'Stock >= 0' });
@@ -43,7 +42,7 @@ const crear = async (req, res) => {
     }
 };
 
-// PUT /api/productos/:id - Actualizar
+// PUT /api/productos/:id
 const actualizar = async (req, res) => {
     try {
         const { id } = req.params;
@@ -63,7 +62,7 @@ const actualizar = async (req, res) => {
     }
 };
 
-// DELETE /api/productos/:id - Eliminar
+// DELETE /api/productos/:id
 const eliminar = async (req, res) => {
     try {
         const { id } = req.params;

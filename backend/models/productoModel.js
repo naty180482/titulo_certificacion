@@ -1,6 +1,6 @@
 const pool = require('../db/connection');
 
-// Obtener todos los productos (con JOIN)
+// Obtener todos los productos (con JOIN a categoría)
 const getProductos = async () => {
     const result = await pool.query(`
         SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, 
